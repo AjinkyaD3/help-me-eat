@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+/* Colour tokens. Light is the default; dark applies when the OS prefers it
+   (unless the user picked Light) or when the user picked Dark. */
+:root {
+  --bg: #f4f5f6;
+  --card: #ffffff;
+  --ink: #16181a;
+  --muted: #6b7177;
+  --line: #e3e5e8;
+  --track: #e7e9ec;
+  --leaf: #1f7a4d;
+  --leaf-dark: #17603c;
+  --leaf-soft: #e4f1ea;
+  --saffron: #f2a33a;
+  --chilli: #d2453a;
+  --on-leaf: #ffffff;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1112;
+    --card: #1a1d1f;
+    --ink: #eceef0;
+    --muted: #9aa1a8;
+    --line: #2a2e32;
+    --track: #24282b;
+    --leaf: #3fa874;
+    --leaf-dark: #5bbf8b;
+    --leaf-soft: #1c3127;
+    --saffron: #f2a33a;
+    --chilli: #e5675c;
+    --on-leaf: #0f1112;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f1112;
+  --card: #1a1d1f;
+  --ink: #eceef0;
+  --muted: #9aa1a8;
+  --line: #2a2e32;
+  --track: #24282b;
+  --leaf: #3fa874;
+  --leaf-dark: #5bbf8b;
+  --leaf-soft: #1c3127;
+  --saffron: #f2a33a;
+  --chilli: #e5675c;
+  --on-leaf: #0f1112;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-track: var(--track);
+  --color-leaf: var(--leaf);
+  --color-leaf-dark: var(--leaf-dark);
+  --color-leaf-soft: var(--leaf-soft);
+  --color-saffron: var(--saffron);
+  --color-chilli: var(--chilli);
+  --color-on-leaf: var(--on-leaf);
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+html { -webkit-tap-highlight-color: transparent; }
+body { background: var(--bg); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--leaf); outline-offset: 2px; }
+
+/* Map pins */
+.fs-pin {
+  width: 26px; height: 26px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+  border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.3);
+}
+.fs-pin-place { background: var(--leaf); }
+.fs-pin-highlight { background: var(--chilli); width: 30px; height: 30px; }
+.fs-pin-home { background: #16181a; }
+.fs-pin-picked { background: var(--saffron); }
+.leaflet-container { font-family: inherit; background: var(--track); }
+
+/* Dark map tiles: invert OSM tiles rather than paying for a dark tile provider. */
+:root[data-theme="dark"] .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9); }
+}
+:root[data-theme="dark"] .leaflet-bar a, :root[data-theme="dark"] .leaflet-control-attribution { background: var(--card); color: var(--ink); }
